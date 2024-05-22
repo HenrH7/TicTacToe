@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import messagebox
 
-class Board(tk.Tk):
+class Board():
     def __init__(self):
         super().__init__()
 
@@ -41,20 +41,21 @@ class Board(tk.Tk):
                 return True
         if (self.board[0] == self.board[4] == self.board[8] == self.get_player_icon() or self.board[2] == self.board[4] == self.board[6] == self.get_player_icon()):
             return True 
+        return False
     
     def reset(self):
         self.board = [0]*9
 
         for ro in range(3):
             for col in range(3):
-                self.board[ro][col].config(text="") #type: ignore
+                self.button_board[ro][col].config(text="") #type: ignore
 
         self.game_counter = 0
 
     def player_clicked_button(self, ro, col):
-        if self.board[ro*3 + col] == " ":
+        if self.board[ro*3 + col] == 0:
             self.game_counter += 1
-            self.board[ro][col].confg(text=self.current_player)
+            self.button_board[ro][col].config(text=self.get_player_icon())
             self.board[ro*3 + col] = self.current_player
         
             if self.win_check() == True:
@@ -65,6 +66,8 @@ class Board(tk.Tk):
                 if self.game_counter == 9:
                     messagebox.showinfo("Tic Tac Toe", "its a tie")
                     self.reset()
-                    
+            print(self.board)
             self.switch_player()
+    def start(self):
+        tk.mainloop()
 

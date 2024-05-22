@@ -9,5 +9,6 @@ from board import Board
 
 def main():
     board = Board()
-    print(board)
+    board.start()
 
+main()
