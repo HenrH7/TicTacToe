@@ -37,9 +37,9 @@ class Board():
     
     def win_check(self):
         for x in range(3):
-            if (self.board[x*3] == self.board[x*3 + 1] == self.board[x*3 + 2] == self.get_player_icon() or self.board[x] == self.board[x + 3] == self.board[x + 6] == self.get_player_icon()):
+            if (self.board[x*3] == self.board[x*3 + 1] == self.board[x*3 + 2] == self.current_player or self.board[x] == self.board[x + 3] == self.board[x + 6] == self.current_player):
                 return True
-        if (self.board[0] == self.board[4] == self.board[8] == self.get_player_icon() or self.board[2] == self.board[4] == self.board[6] == self.get_player_icon()):
+        if (self.board[0] == self.board[4] == self.board[8] == self.current_player or self.board[2] == self.board[4] == self.board[6] == self.current_player):
             return True 
         return False
     
@@ -57,10 +57,9 @@ class Board():
             self.game_counter += 1
             self.button_board[ro][col].config(text=self.get_player_icon())
             self.board[ro*3 + col] = self.current_player
-        
+            print(self.win_check())
             if self.win_check() == True:
                 messagebox.showinfo("Tic Tac Toe", self.get_player_icon() + " Has won!")  #type: ignore
-
                 self.reset()
             else:        
                 if self.game_counter == 9:
