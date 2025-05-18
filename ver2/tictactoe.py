@@ -15,7 +15,7 @@ class Board():
         self.current_player = 1
         self.guess_counter = 0
 
-        self.minimax_scaler = Minimax(2)
+        self.minimax_scaler = Minimax(self.current_player)
        
         self.board = [0] * 9
 
@@ -79,8 +79,9 @@ class Board():
         aviable_moves = self.minimax_scaler.get_avaible_moves(self.board)
         if len(aviable_moves) > 0:
             self.guess_counter += 1
-            
+
             move = self.minimax_scaler.find_move(aviable_moves, self.board)
+            Minimax.depth = 0
 
             self.board[move] = self.current_player
             row, col = divmod(move, 3)
